@@ -11,7 +11,7 @@
 * @version 1.0
 */
 
-#include <stdio.h>
+//#include <stdio.h>
 #include "image.h"
 
 struct BMP_Header {
@@ -24,6 +24,22 @@ struct BMP_Header {
 };
 
 struct DIB_Header{
+    //TODO: Finish struct
+    int DIBHeaderSize;
+    int ImageWidth;
+    int ImageHeight;
+    char planes[2];
+    char bitsPerPixels[2];
+    int compression;
+    int imageSize;
+    int xPixelMeter;
+    int yPixelMeter;
+    int colorIncolorTable;
+    int impColorCount;
+
+};
+
+struct DIB_Header_Lazy{
     //TODO: Finish struct
     char dibHeaderValue[40];
 };
