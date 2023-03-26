@@ -1,0 +1,3 @@
+/home/mcsonline/CLionProjects/Module3/ImageProcessing/cmake-build-debug/CMakeFiles/ImageProcessing.dir
+/home/mcsonline/CLionProjects/Module3/ImageProcessing/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/mcsonline/CLionProjects/Module3/ImageProcessing/cmake-build-debug/CMakeFiles/rebuild_cache.dir
