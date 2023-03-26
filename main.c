@@ -4,7 +4,7 @@
 int main() {
 
     FILE *file_input = fopen("ttt.bmp","rb");
-    //FILE *file_input = fopen("test2.bmp","rb");
+//    FILE *file_input = fopen("test2.bmp","rb");
     struct BMP_Header *header = malloc(sizeof(struct BMP_Header));
 
     readBMPHeader(file_input,header);
@@ -43,6 +43,17 @@ int main() {
     }
 
     fclose(file_input);
+
+    FILE *file_out = fopen("ttt_Nawaf_copy.bmp","wb");
+
+    writeBMPHeader(file_out,header);
+    writeDIBHeader(file_out,dibHeader);
+    writePixelsBMP(file_out,pixelArray,workingImage->width,workingImage->height);
+    fclose(file_out);
+
+
+
+
     free(header);
     free(dibHeader);
     free(pixelArray);

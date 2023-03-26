@@ -22,8 +22,8 @@ void readDIBHeader(FILE* file, struct DIB_Header* header) {
     fread((int *) &header->DIBHeaderSize,sizeof(int),1,file);
     fread((int *) &header->ImageWidth,sizeof(int ),1,file);
     fread((int *) &header->ImageHeight,sizeof(int ),1,file);
-    fread(header->planes,sizeof(char) *2 ,2,file);
-    fread(header->bitsPerPixels,sizeof(short) *2,1,file);
+    fread(&header->planes,sizeof(char) *2 ,1,file);
+    fread(&header->bitsPerPixels,sizeof(short),1,file);
     fread((int *) &header->imageSize, sizeof(int),1,file);
     fread((int *) &header->compression, sizeof(int),1,file);
     fread((int *) &header->xPixelMeter,sizeof(int ),1,file);
@@ -49,9 +49,50 @@ void readPixelsBMP(FILE* file, struct Pixel** pArr, int width, int height){
             fread(&pArr[h][w].red,sizeof(char),1,file);
 
         }
+//        fseek(file,sizeof(unsigned char)*2,SEEK_CUR);
     }
 
+}
 
 
+void writeBMPHeader(FILE* file, struct BMP_Header* header) {
+
+    fwrite(header->headerSignature,sizeof(char) * 2,1,file);
+    fwrite((int *) &header->fileSize, sizeof(int), 1, file);
+    fwrite(header->reserved01, sizeof(short ), 1, file);
+    fwrite(header->reserved02, sizeof(short ), 1, file);
+    fwrite((int *) &header->pixesOffset, sizeof(int), 1, file);
+
+
+}
+
+
+void writeDIBHeader(FILE* file, struct DIB_Header* header) {
+
+    fwrite((int *) &header->DIBHeaderSize,sizeof(int),1,file);
+    fwrite((int *) &header->ImageWidth,sizeof(int ),1,file);
+    fwrite((int *) &header->ImageHeight,sizeof(int ),1,file);
+    fwrite(&header->planes,sizeof(char) *2 ,1,file);
+    fwrite(&header->bitsPerPixels,sizeof(short),1,file);
+    fwrite((int *) &header->imageSize, sizeof(int),1,file);
+    fwrite((int *) &header->compression, sizeof(int),1,file);
+    fwrite((int *) &header->xPixelMeter,sizeof(int ),1,file);
+    fwrite((int *) &header->yPixelMeter,sizeof(int ),1,file);
+    fwrite((int *) &header->colorIncolorTable,sizeof(int ),1,file);
+    fwrite((int *) &header->impColorCount,sizeof(int ),1,file);
+
+}
+
+void writePixelsBMP(FILE* file, struct Pixel** pArr, int width, int height) {
+
+    for(int h = 0 ; h< height ; h++){
+        for(int w =0 ; w <width; w++) {
+
+            fwrite(&pArr[h][w].blue,sizeof(char),1,file);
+            fwrite(&pArr[h][w].green,sizeof(char),1,file);
+            fwrite(&pArr[h][w].red,sizeof(char),1,file);
+
+        }
+    }
 
 }
