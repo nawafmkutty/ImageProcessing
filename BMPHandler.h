@@ -67,6 +67,7 @@ void writeBMPHeader(FILE* file, struct BMP_Header* header);
  * @param  header: Pointer to the destination DIB header
  */
 void readDIBHeader(FILE* file, struct DIB_Header* header);
+void readDIBHeaderLazy(FILE* file, struct DIB_Header_Lazy* header);
 
 /**
  * Write DIB header of a file. Useful for creating a BMP file.

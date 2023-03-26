@@ -26,9 +26,9 @@ struct Image {
 };
 
 struct Pixel{
-    char red;
-    char green;
-    char blue;
+    unsigned char red;
+    unsigned char green;
+    unsigned char blue;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
