@@ -1,25 +1,22 @@
 #include "image.h"
 #include "BMPHandler.h"
 
+void ProcessOption(int option);
+void userMenu();
+
 int main() {
 
     FILE *file_input = fopen("ttt.bmp","rb");
-//    FILE *file_input = fopen("test2.bmp","rb");
     struct BMP_Header *header = malloc(sizeof(struct BMP_Header));
 
     readBMPHeader(file_input,header);
     struct DIB_Header *dibHeader = malloc(sizeof(struct DIB_Header));
     readDIBHeader(file_input,dibHeader);
-    //struct DIB_Header_Lazy *dibHeader = malloc(sizeof(struct DIB_Header_Lazy));
-    //readDIBHeaderLazy(file_input,dibHeader);
 
     struct Image* workingImage = malloc(sizeof(struct Image));
 
     workingImage->height = dibHeader->ImageHeight;
     workingImage->width = dibHeader->ImageWidth;
-//        workingImage->height=2;
-//        workingImage->width=2;
-
 
     struct Pixel** pixelArray = (struct Pixel**) malloc(workingImage->height * sizeof(struct Pixel*));
 
@@ -28,9 +25,6 @@ int main() {
     }
 
     readPixelsBMP(file_input,pixelArray,workingImage->width,workingImage->height);
-
-    //printf("The Values are:- %d , %d , %d \n",pixelArray[0][0].red ,pixelArray[0][0].green,pixelArray[0][0].blue);
-
     workingImage->pArr =pixelArray;
     printf("The Values are: \n\n");
     for(int h = 0 ; h< workingImage->height ; h++){
@@ -42,14 +36,20 @@ int main() {
         printf("\n");
     }
 
+
     fclose(file_input);
 
-    FILE *file_out = fopen("ttt_Nawaf_copy.bmp","wb");
+
+    //image_apply_colorshift(workingImage,56,45,78);
+    image_apply_bw(workingImage);
+
+    FILE *file_out = fopen("ttt_Nawaf_copy_bw.bmp","wb");
 
     writeBMPHeader(file_out,header);
     writeDIBHeader(file_out,dibHeader);
-    writePixelsBMP(file_out,pixelArray,workingImage->width,workingImage->height);
+    writePixelsBMP(file_out,workingImage->pArr,workingImage->width,workingImage->height);
     fclose(file_out);
+
 
 
 
@@ -59,3 +59,4 @@ int main() {
     free(pixelArray);
     return 0;
 }
+
