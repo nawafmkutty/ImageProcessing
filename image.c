@@ -49,6 +49,7 @@ void image_apply_bw(Image* img) {
                 img->pArr[h][w].blue = img->pArr[h][w].blue * bGrayScale;
                 img->pArr[h][w].green = img->pArr[h][w].green * gGrayScale;
         }
+
     }
 
 
